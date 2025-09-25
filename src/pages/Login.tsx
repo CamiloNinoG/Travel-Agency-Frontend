@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 function Login() {
+
+  const navigate = useNavigate();
+
+  const handle2faRedirect = () => {
+    navigate("/2fa");
+  };
   return (
       <div className="h-screen flex">
         <div className="w-1/2 hidden md:block relative">
@@ -56,6 +64,7 @@ function Login() {
 
               <button
                 type="submit"
+                onClick={handle2faRedirect}
                 className="w-full bg-sky-500 text-white py-2 rounded-md hover:bg-sky-600"
               >
                 Ingresar

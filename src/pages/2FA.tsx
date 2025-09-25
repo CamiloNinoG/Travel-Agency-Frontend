@@ -89,7 +89,7 @@ const getStateMessage = () => {
 
 return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center p-4">
-    <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border p-6 animate-fade-in">
+    <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 animate-fade-in">
         <div className="text-center pb-4">
         <div className="mx-auto mb-4 p-3 bg-blue-100 rounded-full w-fit">
             {getStateIcon()}
@@ -98,6 +98,7 @@ return (
             Verificación en dos pasos
         </h2>
         </div>
+
 
         <p
         className={`text-center text-sm mb-6 transition-colors duration-300 ${
@@ -116,7 +117,7 @@ return (
         {code.map((digit, i) => (
             <input
             key={i}
-            ref={(el) => (inputsRef.current[i] = el)}
+            ref={(el) => { inputsRef.current[i] = el; }}
             type="text"
             maxLength={1}
             value={digit}
