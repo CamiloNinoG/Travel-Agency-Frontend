@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/authService.ts";
+import { login } from "../services/AuthService";
 function Login() {
 
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,6 +79,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 </a>
               </div>
 
+              {error && <p className="text-red-500 text-sm">{error}</p>}
               <button
                 type="submit"
                 onClick={handleSubmit}
