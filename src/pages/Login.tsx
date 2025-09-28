@@ -1,14 +1,29 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { login } from "../services/authService.ts";
 function Login() {
 
   const navigate = useNavigate();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
 
-  const handle2faRedirect = () => {
-    navigate("/2fa");
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const data = await login(email, password);
+      localStorage.setItem("token", data.token); // guardamos JWT
+      console.log("Token guardado:", data.token);
+
+      navigate("/2fa"); // redirige a 2fa
+    } catch (err) {
+      setError("Credenciales inválidas");
+    }
   };
+
   return (
       <div className="h-screen flex">
+        {/* Video */}
         <div className="w-1/2 hidden md:block relative">
           <video
             className="w-full h-full object-cover"
@@ -37,6 +52,7 @@ function Login() {
                 <input
                   type="email"
                   placeholder="Ingrese su emaiil"
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </div>
@@ -48,6 +64,7 @@ function Login() {
                 <input
                   type="password"
                   placeholder="Ingrese su contraseña"
+                  onChange={(e)=> setPassword(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
               </div>
@@ -64,7 +81,7 @@ function Login() {
 
               <button
                 type="submit"
-                onClick={handle2faRedirect}
+                onClick={handleSubmit}
                 className="w-full bg-sky-500 text-white py-2 rounded-md hover:bg-sky-600"
               >
                 Ingresar
