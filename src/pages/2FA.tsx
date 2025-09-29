@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { CheckCircle, Mail, RefreshCw, AlertCircle } from "lucide-react";
+import { verify2FA } from "../services/AuthService";
 
 type AuthState = "initial" | "verifying" | "success" | "error";
 
@@ -34,23 +35,34 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) 
     }
 };
 
-const simulateVerification = async () => {
+const verifyCode = async () => {
     setAuthState("verifying");
+    try {
+        const sessionId = localStorage.getItem("sessionId");
+        if (!sessionId) {
+        throw new Error("No session ID found. Por favor inicia sesión de nuevo.");
+        }
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+        // 👇 Llamas a tu servicio axios
+        const data = await verify2FA(sessionId, code.join(""));
+        console.log(data);
 
-    const inputCode = code.join("");
-    if (inputCode === "123456") {
-    setAuthState("success");
-    alert("✅ ¡Verificación exitosa!");
-    } else {
-    setAuthState("error");
-    setAttempts((prev) => prev + 1);
-    setCode(Array(6).fill(""));
-    inputsRef.current[0]?.focus();
-    alert("❌ Código incorrecto");
+        if (data.status === "success") {
+            setAuthState("success");
+            localStorage.setItem("token", data.token);
+            alert("✅ ¡Verificación exitosa!");
+            window.location.href = "/home"; 
+        } else {
+        throw new Error("Código incorrecto");
+        }
+    } catch (err) {
+        setAuthState("error");
+        setAttempts((prev) => prev + 1);
+        setCode(Array(6).fill(""));
+        inputsRef.current[0]?.focus();
     }
 };
+
 
 const handleResend = () => {
     setCode(Array(6).fill(""));
@@ -139,16 +151,16 @@ return (
 
         {/* Verify button */}
         <button
-        onClick={simulateVerification}
-        disabled={
-            code.join("").length !== 6 ||
-            authState === "verifying" ||
-            authState === "success"
-        }
-        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 
-                    text-white font-medium hover:shadow-lg transition-all duration-300 disabled:opacity-50"
-        >
-        {authState === "verifying" ? "Verificando..." : "Verificar código"}
+            onClick={verifyCode}
+            disabled={
+                code.join("").length !== 6 ||
+                authState === "verifying" ||
+                authState === "success"
+            }
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 
+                        text-white font-medium hover:shadow-lg transition-all duration-300 disabled:opacity-50"
+            >
+            {authState === "verifying" ? "Verificando..." : "Verificar código"}
         </button>
 
         {/* Resend */}

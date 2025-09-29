@@ -9,3 +9,11 @@ export const login = async (email: string, password: string) => {
     });
     return response.data;
 };
+
+export const verify2FA = async (sessionId: string, code: string) => {
+    const response = await axios.post(`${API_URL}/verify-2fa`, {
+        sessionId,
+        code,
+    });
+    return response.data;
+}
