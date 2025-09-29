@@ -8,18 +8,22 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      localStorage.setItem("token", data.token); // guardamos JWT
-      console.log("Token guardado:", data.token);
 
-      navigate("/2fa"); // redirige a 2fa
+      if (data.status === "pending-2fa") {
+        localStorage.setItem("sessionId", data.sessionId);
+        navigate("/2fa");
+      } else {
+        setError("Error inesperado en login");
+      }
     } catch (err) {
       setError("Credenciales inválidas");
     }
   };
+
 
   return (
       <div className="h-screen flex">
