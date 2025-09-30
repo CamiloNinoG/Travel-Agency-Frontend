@@ -10,6 +10,7 @@ function AppRoutes() {
         <Route path="/2FA" element={<F2A />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home/>} />
       </Routes>
     </BrowserRouter>
   );
