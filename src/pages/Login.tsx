@@ -129,7 +129,7 @@ function Login() {
 
               <p className="text-center text-sm mt-6">
               ¿No tienes cuenta?{" "}
-              <a href="#" className="text-sky-500 hover:underline">
+              <a href="/register" className="text-sky-500 hover:underline">
                 Registrate
               </a>
             </p>

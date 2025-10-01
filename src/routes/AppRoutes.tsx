@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login.tsx";
 import F2A from "../pages/2FA.tsx";
-import Home from "../pages/home.tsx";
+import Home from "../pages/Home.tsx";
+import Register from "../pages/Register.tsx";
 
 function AppRoutes() {
   return (
@@ -11,6 +12,7 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home/>} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
