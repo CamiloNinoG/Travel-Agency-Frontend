@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Home, LayoutDashboard, Settings, Users, FileText, Menu, X, ChevronLeft } from "lucide-react"
+import { Home, LayoutDashboard, Settings, Users, FileText, Menu, X, ChevronLeft, Timer } from "lucide-react"
 
 // Utilidad para concatenar clases (puedes remplazar con clsx o tailwind-variants si prefieres)
 function cn(...classes: (string | boolean | undefined)[]) {
@@ -11,11 +11,11 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { icon: Home, label: "Inicio", href: "/" },
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
   { icon: Users, label: "Usuarios", href: "/users" },
-  { icon: FileText, label: "Documentos", href: "/documents" },
-  { icon: Settings, label: "Configuración", href: "/settings" },
+  { icon: FileText, label: "Roles", href: "/roles" },
+  { icon: Settings, label: "Permisos", href: "/permissions" },
+  { icon: Timer, label: "Historial", href: "/history" },
 ]
 
 export function Sidebar({ className }: SidebarProps) {
