@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { CheckCircle, Mail, RefreshCw, AlertCircle } from "lucide-react";
-import { verify2FA } from "../services/AuthService";
+import { verify2FA, resend2FA } from "../services/AuthService";
+
+
 
 type AuthState = "initial" | "verifying" | "success" | "error";
 
@@ -43,9 +45,7 @@ const verifyCode = async () => {
         throw new Error("No session ID found. Por favor inicia sesión de nuevo.");
         }
 
-        // 👇 Llamas a tu servicio axios
         const data = await verify2FA(sessionId, code.join(""));
-        console.log(data);
 
         if (data.status === "success") {
             setAuthState("success");
@@ -64,13 +64,21 @@ const verifyCode = async () => {
 };
 
 
+
 const handleResend = () => {
     setCode(Array(6).fill(""));
     setAuthState("initial");
     setAttempts(0);
     setCountdown(60);
     inputsRef.current[0]?.focus();
-    alert("📩 Código reenviado a tu correo");
+
+    const sessionId = localStorage.getItem("sessionId");
+    if (sessionId) {
+        resend2FA(sessionId);
+        alert("📩 Código reenviado a tu correo");
+    } else {
+        alert("❌ No se pudo reenviar el código. Por favor inicia sesión de nuevo.");
+    }
 };
 
 const getStateIcon = () => {
