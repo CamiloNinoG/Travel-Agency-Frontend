@@ -1,4 +1,12 @@
 @import "tailwindcss";
+:root {
+  --primary-color: #1e40af;      /* Azul oscuro */
+  --secondary-color: #60a5fa;    /* Azul claro */
+  --button-hover: #1e3a8a;       /* Hover para primary */
+  --card-bg-color: #ffffff;
+  --text-color: #111827;
+}
+
 /* 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

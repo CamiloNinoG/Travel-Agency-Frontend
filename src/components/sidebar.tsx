@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Home, LayoutDashboard, Settings, Users, FileText, Menu, X, ChevronLeft } from "lucide-react"
+import LogoutButton from "./LogoutButton" // 👈 importa tu botón
 
-// Utilidad para concatenar clases (puedes remplazar con clsx o tailwind-variants si prefieres)
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ")
 }
@@ -115,7 +115,7 @@ export function Sidebar({ className }: SidebarProps) {
           </nav>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-4 border-t border-gray-200 space-y-4">
             <div
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-100",
@@ -130,6 +130,9 @@ export function Sidebar({ className }: SidebarProps) {
                 <p className="text-xs text-gray-500">usuario@email.com</p>
               </div>
             </div>
+
+            {/* 👇 Botón de logout */}
+            <LogoutButton />
           </div>
         </div>
       </aside>
