@@ -14,4 +14,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Interceptor global para manejar errores de respuesta
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 403) {
+      // Mostrar mensaje y redirigir
+      alert(error.response.data?.message || "No tienes permisos para acceder");
+      window.location.href = "/home"; // redirige al home
+    }
+    return Promise.reject(error); // siempre rechazar para no romper promesas
+  }
+);
+
 export default api;

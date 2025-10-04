@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/AuthService";
-import ImageCaptchaModal from "../components/ImageCaptcha";
+// import ImageCaptchaModal from "../components/ImageCaptcha";
 
 function Login() {
   const navigate = useNavigate();
@@ -9,22 +9,22 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [captchaPassed, setCaptchaPassed] = useState(false);
-  const [isCaptchaOpen, setIsCaptchaOpen] = useState(false);
+  // const [captchaPassed, setCaptchaPassed] = useState(false);
+  // const [isCaptchaOpen, setIsCaptchaOpen] = useState(false);
 
-  const handleCaptchaVerify = (success: boolean) => {
-    setCaptchaPassed(success);
-    if (!success) setError("CAPTCHA incorrecto ❌");
-    else setError("");
-  };
+  // const handleCaptchaVerify = (success: boolean) => {
+  //   setCaptchaPassed(success);
+  //   if (!success) setError("CAPTCHA incorrecto ❌");
+  //   else setError("");
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!captchaPassed) {
-      setError("Por favor completa el CAPTCHA antes de iniciar sesión");
-      return;
-    }
+    // if (!captchaPassed) {
+    //   setError("Por favor completa el CAPTCHA antes de iniciar sesión");
+    //   return;
+    // }
 
     try {
       const data = await login(email, password);
@@ -89,7 +89,7 @@ function Login() {
             </div>
 
             {/* Botón CAPTCHA */}
-            <button
+            {/* <button
               type="button"
               onClick={() => setIsCaptchaOpen(true)}
               className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-md font-medium transition-all 
@@ -109,9 +109,9 @@ function Login() {
                   <span>CAPTCHA</span>
                 </>
               )}
-            </button>
+            </button> */}
             {/* Botón CAPTCHA */}
-            
+
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <button
@@ -166,11 +166,11 @@ function Login() {
               </a>
             </p>
             {/* Modal CAPTCHA */}
-            <ImageCaptchaModal
+            {/* <ImageCaptchaModal
               isOpen={isCaptchaOpen}
               onClose={() => setIsCaptchaOpen(false)}
               onVerify={handleCaptchaVerify}
-            />
+            /> */}
           </div>
         </div>
       </div>
