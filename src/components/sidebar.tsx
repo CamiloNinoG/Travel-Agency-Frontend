@@ -13,7 +13,7 @@ interface SidebarProps {
 const menuItems = [
   { icon: Home, label: "Inicio", href: "/" },
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-  { icon: Users, label: "Usuarios", href: "/users" },
+  { icon: Users, label: "Usuarios", href: "/list-user" },
   { icon: FileText, label: "Documentos", href: "/documents" },
   { icon: Settings, label: "Configuración", href: "/settings" },
 ]
