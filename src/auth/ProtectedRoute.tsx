@@ -1,23 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { getToken } from "../utils/auth";
-import { useEffect, useState } from "react";
 
 const ProtectedRoute = () => {
-  const [isAuth, setIsAuth] = useState<boolean | null>(null); // null = verificando
+  const token = getToken();
 
-  useEffect(() => {
-    const token = getToken();
-    setIsAuth(!!token);
-  }, []);
+  if (!token) return <Navigate to="/login" replace />; // ❌ No hay token → no monta nada
 
-  // Mientras verificamos, no renderizamos nada
-  if (isAuth === null) return null;
-
-  // Redirige si no hay token
-  if (!isAuth) return <Navigate to="/login" replace />;
-
-  // Usuario autenticado, renderizamos hijos
-  return <Outlet />;
+  return <Outlet />; // ✅ Solo monta componentes si hay token
 };
 
 export default ProtectedRoute;
